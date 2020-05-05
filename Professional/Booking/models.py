@@ -3,9 +3,9 @@ from django.contrib.auth.models import AbstractUser
 # Create your models here.
 class p_user(AbstractUser):
     pass
-    origin=models.ForeignKey('origin',on_delete=models.CASCADE,blank=True)
-    branches=models.ForeignKey('branch',on_delete=models.CASCADE,blank=True)
-    admin=models.BooleanField(blank=True)
+    origin=models.ForeignKey('origin',null=True,on_delete=models.CASCADE,blank=True)
+    branches=models.ForeignKey('branch',null=True,on_delete=models.CASCADE,blank=True)
+    admin=models.BooleanField(null=True,blank=True)
     class Meta:
         db_table=u'Prof_Users'
     def __str__(self):

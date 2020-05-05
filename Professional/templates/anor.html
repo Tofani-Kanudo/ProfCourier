@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consignor Details</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        #demo{ color: red; }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="container__item landing-page-container">
+            <div class="content__wrapper">
+                <nav class="navbar navbar-inverse">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <a class="navbar-brand" href="">Admin</a>
+                        </div>
+                        <ul class="nav navbar-nav">
+                            <li class="dashboard"><a href="{% url 'cont' %}" id="d1">Dashboard</a></li>
+                            <li class="edit"><a href="{% url 'reg_page' %}" id="d2">Create Users</a></li>
+                            <li class="write"><a href="{% url 'pod_pg' %}" id="d3">Allocate POD's</a></li>
+                            <li class="comments active"><a href="{% url 'ad' %}">New Booking</a></li>
+                            <li class="users"><a href="http://127.0.0.1:8000/admin/" class="sup">Manage Data</a></li>
+                            <li><form class="form-inline" action="{% url 'search' %}" method="GET">
+                                <input class="form-control mr-sm-2" type="search" name="searchbox" placeholder="Search" aria-label="Search">
+                                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                              </form>
+                            </li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href=""><span class="glyphicon glyphicon-user"></span> {{user}}</a></li>
+                            <li><a href="{% url 'user_logout' %}"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+                        </ul>
+                    </div>
+                </nav>
+  <ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#shippe">Shipper</a></li>
+    <li><a data-toggle="tab" href="#addresse">Addresse</a></li>
+    <li><a data-toggle="tab" href="#payment">Payment</a></li>
+  </ul>
+  <div class="tab-content">
+    <div id="shippe" class="tab-pane fade in active">
+      <fieldset>
+                    <form action="{% url 'proceed' %}" method="POST" id="Farm">{% csrf_token %}
+                            <legend>Shipper Details</legend>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="origin">Origin</label><br>
+                                <input type="text" name="Origin" id="origin" value="{{ori}}" autocomplete="off" autofocus readonly required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="book">Booking Type</label>
+                                <select name="book" id="book" class="form-control" required>
+                                    <option value="" selected></option>
+                                    <option value="Cash">Cash</option>
+                                    <option value="Credit">Credit</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="pod">POD no.</label><br>
+                                <input type="text" name="pod" id="pod" autocomplete="off">
+                                <span id="demo1"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="bulk">Bulk Booking</label>
+                                <input type="checkbox" name="bulk" id="bulk">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-7">
+                                <label for="branch">Branch</label><br>
+                                <select name="branch" id="branch" class="form-control" required>
+                                    <option selected="selected" value=""></option>
+                                    {% for b in branches %}
+                                    <option value="{{b.branch}}">{{b.branch}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="mobile">Mobile no.</label><br>
+                                <input type="text" name="number" id="mobile" required>
+                                <span id="demo"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="ref">Ref no.</label><br>
+                                <input type="text" name="ref" id="ref">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="shipper">Shipper</label><br>
+                                <input type="text" name="shipper" id="shipper" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="phone">Phone</label><br>
+                                <input type="text" name="phone" id="phone">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="add1">Address Line 1</label><br>
+                                <input type="text" name="add1" id="add1">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="add2">Address Line 2</label><br>
+                                <input type="text" name="add2" id="add2">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="city">City</label><br>
+                                <input type="text" name="city" id="city">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="email">Email</label><br>
+                                <input type="email" name="email" id="email">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="flyer">Flyer No.</label><br>
+                                <input type="text" name="flyer" id="flyer">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="gst">GSTIN</label><br>
+                                <input type="text" name="gst" id="gst">
+                            </div>
+                        </div>
+                    <!-- </form>   -->
+                    <div class="form-row">
+                        <div class="form-group col-md-10">
+                            <span id="demo1"></span>
+                            <span id="demo"></span>
+                            <button class="btn btn-success btn-lg btn-block" id="proceed" disabled>Proceed</button>
+                        </div>
+                    </div>
+                </fieldset>
+    </div>
+    <div id="addresse" class="tab-pane fade">
+        <fieldset>
+      <!-- <form action="{% url 'proceed' %}" method="post">{% csrf_token %} -->
+                                   <a name="addresse"><legend>Addressee's Details</legend></a>
+                                   <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="pin">Pincode</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<u><i><b>OR</b></i></u><br>
+                                        <input type="text" name="pin" id="pin" autofocus>
+                                        <span id="demo2"></span>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="destination">Destination</label><br>
+                                        <input type="text" name="destination" id="destination" required>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="mobiles">Mobile no.</label><br>
+                                        <input type="text" name="numbers" id="mobiles" required>
+                                        <span id="demo3"></span>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="cons">Consignee</label><br>
+                                        <input type="text" name="cons" id="cons" required>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="company">Company</label><br>
+                                        <input type="text" name="company" id="company">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="phones">Phone</label><br>
+                                        <input type="text" name="phones" id="phones">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="adds1">Address Line 1</label><br>
+                                        <input type="text" name="adds1" id="adds1">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="adds2">Address Line 2</label><br>
+                                        <input type="text" name="adds2" id="adds2">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="citys">City</label><br>
+                                        <input type="text" name="citys" id="citys">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="emails">Email</label><br>
+                                        <input type="email" name="emails" id="emails">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="gsts">GSTIN</label><br>
+                                        <input type="text" name="gsts" id="gsts">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-10">
+                                        <span id="demo1"></span>
+                                        <span id="demo"></span>
+                                        <span id="demo2"></span>
+                                        <span id="demo3"></span>
+                                    </div>
+                                </div>
+                            <!-- </form> -->
+                            <button class="btn btn-success btn-lg btn-block" id="proceeds" disabled>Proceed</button>
+                        </fieldset>
+    </div>
+    <div id="payment" class="tab-pane fade">
+                <fieldset>
+                    <legend>Payment</legend>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="nop">No. of Pieces</label><br>
+                        <input type="number" name="nop" id="nop" autocomplete="off" autofocus required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="mode">Mode</label>
+                        <select name="mode" id="mode" class="form-control" required>
+                            <option value="" selected></option>
+                            <option value="Air">Air</option>
+                            <option value="Surface">Surface</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="Weight">Weight</label><br>
+                        <input type="text" name="Weight" id="Weight" autocomplete="off" required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="Amount">Amount</label><br>
+                        <input type="text" name="Amount" id="Amount" value = "0"readonly required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="content">Content</label><br>
+                        <input type="text" name="content" id="content">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="Value">Value</label><br>
+                        <input type="text" name="Value" id="Value">
+                    </div>
+                </div>
+            <button class="btn btn-success btn-lg btn-block" type="submit" id="proceedf">Proceed</button>
+        </form>
+        <a href="{% url 'proceed' %}">
+        </a>
+        </fieldset>
+    </div>
+  </div>
+            </div>
+    </div>
+</div>
+    <script>
+        var p0 = performance.now()
+        if("{{user.is_superuser}}"=="False"){
+            document.getElementById("d1").style.pointerEvents="none";
+            document.getElementById("d1").style.cursor="default";
+            document.getElementById("d2").style.pointerEvents="none";
+            document.getElementById("d2").style.cursor="default";
+            document.getElementById("d3").style.pointerEvents="none";
+            document.getElementById("d3").style.cursor="default";
+        }
+        proceed.onclick = function(){
+            $('.nav-tabs a[href="#addresse"]').tab('show');
+        }
+        proceeds.onclick = function(){
+            $('.nav-tabs a[href="#payment"]').tab('show');
+        }
+        var nu=[],sh=[],a1=[],a2=[],ci=[],em=[],gs=[],rf=[],ph=[],nus=[],shs=[],a1s=[],a2s=[],cis=[],ems=[],gss=[],rfs=[],phs=[],po=[],pi=[],dis=[],st=[];
+        {% if party %}
+        nu.push("{{party.number}}");
+        if (nu[0]!=""){
+        sh.push("{{party.name}}");
+        a1.push("{{party.address1}}");
+        a2.push("{{party.address2}}");
+        ci.push("{{party.city}}");
+        em.push("{{party.email}}");
+        gs.push("{{party.gst}}");
+        rf.push("{{party.reference}}");
+        ph.push("{{party.phone}}");
+        document.getElementById("mobile").value = nu[0]
+        document.getElementById("ref").value=rf[0]
+        document.getElementById("shipper").value = sh[0]
+        document.getElementById("phone").value=ph[0]
+        document.getElementById("add1").value = a1[0]
+        document.getElementById("add2").value = a2[0]
+        document.getElementById("city").value = ci[0]
+        document.getElementById("email").value = em[0]
+        document.getElementById("gst").value = gs[0]
+        document.getElementById("proceed").disabled = false;
+        document.getElementById("demo").innerHTML = ' '}
+        {% endif %}
+        {% if book %}
+        document.getElementById("book").value="{{book}}"
+        {% endif %}
+        {% if branch %}
+        document.getElementById("branch").value="{{branch}}"
+        {% endif %}
+        {% if cons %}
+        nus.push("{{cons.number}}");
+        if (nus[0]!=""){
+        shs.push("{{cons.name}}");
+        a1s.push("{{cons.address1}}");
+        a2s.push("{{cons.address2}}");
+        cis.push("{{cons.city}}");
+        ems.push("{{cons.email}}");
+        gss.push("{{cons.gst}}");
+        rfs.push("{{cons.reference}}");
+        phs.push("{{cons.phone}}");
+        document.getElementById("mobiles").value = nus[0]
+        document.getElementById("company").value=rfs[0]
+        document.getElementById("cons").value = shs[0]
+        document.getElementById("phones").value=phs[0]
+        document.getElementById("adds1").value = a1s[0]
+        document.getElementById("adds2").value = a2s[0]
+        document.getElementById("citys").value = cis[0]
+        document.getElementById("emails").value = ems[0]
+        document.getElementById("gsts").value = gss[0]
+        document.getElementById("proceeds").disabled = false;
+        document.getElementById("demo3").innerHTML = ' '}
+        {% endif %}
+        {% for p in apod %}
+        document.getElementById("pod").value="{{ p }}"
+        if (document.getElementById("pod")==""){
+            document.getElementById("demo1").innerHTML = 'Pod not allocated.'
+            document.getElementById("proceed").disabled = true;
+        }
+        else{
+            document.getElementById("proceed").disabled = false;
+            document.getElementById("demo1").innerHTML = ' '
+        }
+        {% endfor %}
+        {% for l in loc %}pi.push("{{l.pincode}}");
+        dis.push("{{l.district}}");
+        st.push("{{l.state}}");
+        document.getElementById("pin").value=pi[0]
+        document.getElementById("destination").value=dis[0]
+        document.getElementById("demo2").innerHTML=' '
+        {% endfor %}
+        if (!((typeof {{b}})== "boolean")){
+            document.getElementById("bulk").checked=true;
+            document.getElementById("mobile").value = nu[0]
+            document.getElementById("ref").value=rf[0]
+            document.getElementById("shipper").value = sh[0]
+            document.getElementById("phone").value=ph[0]
+            document.getElementById("add1").value = a1[0]
+            document.getElementById("add2").value = a2[0]
+            document.getElementById("city").value = ci[0]
+            document.getElementById("email").value = em[0]
+            document.getElementById("gst").value = gs[0]
+            po.sort();
+            document.getElementById("pod").value=po[0]
+        }
+        pod.onblur = function() {
+            var no = /^\d{8}$/,n=/^\d{9}$/;
+            if (!this.value.match(no)&&!this.value.match(n)) {
+                document.getElementById("demo1").innerHTML = 'Please enter a valid number.'
+                document.getElementById("proceed").disabled = true;
+            }
+            else{
+                if (!(document.getElementById("demo1").innerHTML == ' ')) {
+                document.getElementById("Farm").submit();
+                }
+            }
+        }
+        mobile.onblur = function() {
+            var no = /^\d{10}$/;
+            if (!this.value.match(no)) {
+                document.getElementById("demo").innerHTML = 'Please enter a valid number.'
+                document.getElementById("proceed").disabled = true;
+            }
+          else{
+              if (!(document.getElementById("demo").innerHTML == ' ')) {
+            document.getElementById("Farm").submit();
+              }
+            }
+        };
+        mobiles.onblur = function() {
+            var no = /^\d{10}$/;
+            if (!this.value.match(no)) {
+                document.getElementById("demo3").innerHTML = 'Please enter a valid number.'
+                document.getElementById("proceed").disabled = true;
+            }
+          else{
+              if (!(document.getElementById("demo3").innerHTML == ' ')) {
+            document.getElementById("Farm").submit();}
+            }
+        };
+        pin.onblur = function(){
+            if (!(document.getElementById("demo2").innerHTML == ' ')||(this.value!=pi[0])) {
+            document.getElementById("Farm").submit();}
+        }
+        var p1 = performance.now()
+        console.log(p1-p0)
+        if (document.getElementById("shipper").value!="") {
+            $('.nav-tabs a[href="#addresse"]').tab('show');
+        }
+        if (document.getElementById("cons").value!="") {
+            $('.nav-tabs a[href="#payment"]').tab('show');
+        }
+    </script>
+</body>
+</html>

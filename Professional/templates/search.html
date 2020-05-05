@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Result</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+    <body>
+        <table class="table table-striped table-hover table-dark">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Search Results</th>
+                <th scope="col">More Details</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% if result %}<tr><td>Consignment Number</td><td></td><td></td></tr>{% endif %}
+              {% for u in result %}
+              <tr>
+                <th scope="row">{{forloop.counter}}</th>
+                <td>POD no.: {{u.pod}}</td>
+                <td><a href="/receipt/{{u.pod}}/"><button class="btn btn-info btn-sm btn-block" id="more">More Details</button></a></td>
+              </tr>
+              {% endfor %}
+              {% if resu %}<tr><td>Party Booking</td><td></td><td></td></tr>{% endif %}
+              {% for u in resu %}
+              <tr>
+                <th scope="row">{{forloop.counter}}</th>
+                <td>Date.: {{u.time}}</td>
+                <td><a href="/receipt/{{u.pod}}/"><button class="btn btn-info btn-sm btn-block" id="more">More Details</button></a></td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          <!-- </table>
+        <table>
+            <tr>
+                <th>Search Results</th>
+            </tr>
+            {% for u in result %}
+            <tr> <td>
+            <h1>POD no: {{ u.pod }}</h1>
+            <h1>Booking Type: {{ u.booktype }}</h1>
+            <h3>Branch: {{ u.branch }}</h3>
+            <h4>Number of Shipper: {{ u.sender }}</h4>
+            Shipper's Address: {{u.sender.address1}} <br>
+            Time: {{u.time}} <br>
+            --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+            </td></tr>
+            {% endfor %}
+        </table> -->
+    </body>
+</html>

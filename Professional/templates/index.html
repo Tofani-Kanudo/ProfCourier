@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <link rel='stylesheet' href='https://bootswatch.com/4/lumen/bootstrap.min.css'>
+    <style>
+        body {
+    background: url('https://images.unsplash.com/photo-1534408679207-69b9615e55a7?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&s=cfbabd80cd2d5cae495a2a732d473562') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+.card {
+  width: 300px;
+}
+.nav-item .nav-link[disabled]:hover {}
+    </style>
+</head>
+<body>
+    <div class="container mt-5 pt-5">
+        <div class="card mx-auto border-0">
+          <div class="card-header border-bottom-0 bg-transparent">
+            <ul class="nav nav-tabs justify-content-center pt-4" id="pills-tab" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active text-primary" id="pills-login-tab" data-toggle="pill" href="#pills-login" role="tab" aria-controls="pills-login"
+                   aria-selected="true">Login</a>
+              </li>
+
+              <!-- <li class="nav-item">
+                <a class="nav-link text-primary" id="pills-pod-tab" data-toggle="pill" href="#pills-pod" role="tab" aria-controls="pills-pod"
+                   aria-selected="false">Allocate POD</a>
+              </li> -->
+            </ul>
+          </div>
+      
+          <div class="card-body pb-4">
+            <div class="tab-content" id="pills-tabContent">
+              <div class="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="pills-login-tab">
+                <form action="{% url 'login' %}" method="post">{% csrf_token %}
+                  <div class="form-group">
+                    <input type="text" name="username" class="form-control" id="email" autocomplete="off" placeholder="Username" required autofocus>
+                  </div>
+      
+                  <div class="form-group">
+                    <input type="password" name="password" class="form-control" id="password" id="password" placeholder="Password" required>
+                  </div>
+      
+                  <!-- <div class="custom-control custom-checkbox">
+                    <input class="custom-control-input" id="customCheck1" checked="" type="checkbox">
+                    <label class="custom-control-label" for="customCheck1">Check me out</label>
+                  </div> -->
+      
+                  <div class="text-center pt-4">
+                    <button type="submit" class="btn btn-primary">Login</button>
+                  </div>
+      
+                  <div class="text-center pt-2">
+                  </div>
+                </form>
+              </div>
+        </div>
+    </div>
+        </div>
+    </div>
+    <script src='https://use.fontawesome.com/releases/v5.2.0/js/all.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/popper.min.js'></script>
+    <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js'></script>
+</body>
+</html>

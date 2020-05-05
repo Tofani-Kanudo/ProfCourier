@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consignor Details</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        #demo{ color: red; }
+        legend{
+            color: crimson;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="container__item landing-page-container">
+            <div class="content__wrapper">
+                <nav class="navbar navbar-inverse">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <a class="navbar-brand" href="">Booking</a>
+                        </div>
+                        <ul class="nav navbar-nav">
+                            <li class="dashboard"><a href="{% url 'cont' %}" id="d1">Dashboard</a></li>
+                            <li class="edit"><a href="{% url 'reg_page' %}" id="d2">Create Users</a></li>
+                            <li class="write"><a href="{% url 'pod_pg' %}" id="d3">Allocate POD's</a></li>
+                            <li class="comments active"><a href="{% url 'book' %}">New Booking</a></li>
+                            <li class="users"><a href="http://127.0.0.1:8000/admin/">Manage Data</a></li>
+                            <li><form class="form-inline" action="{% url 'search' %}" method="GET">
+                                <input class="form-control mr-sm-2" type="search" name="searchbox" placeholder="Search" aria-label="Search">
+                                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                              </form>
+                            </li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href=""><span class="glyphicon glyphicon-user"></span> {{user}}</a></li>
+                            <li><a href="{% url 'user_logout' %}"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+                        </ul>
+                    </div>
+                </nav>
+  <ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#shippe">Shipper</a></li>
+    <li><a data-toggle="tab" href="#addresse">Addresse</a></li>
+    <li><a data-toggle="tab" href="#payment">Payment</a></li>
+  </ul>
+  <div class="tab-content">
+    <div id="shippe" class="tab-pane fade in active">
+      <fieldset>
+                    <form action="{% url 'proceed' %}" method="POST" id="Farm">{% csrf_token %}
+                            <br><legend>Shipper Details (* Required)</legend>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="origin">Origin</label><br>
+                                <input type="text" name="Origin" id="origin" value="{{user.origin}}" autocomplete="off" autofocus readonly required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="book">Booking Type *</label>
+                                <select name="book" id="book" class="form-control" required>
+                                    <option value="" selected></option>
+                                    <option value="Cash">Cash</option>
+                                    <option value="Credit">Credit</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="pod">POD no. *</label><br>
+                                <input type="text" name="pod" id="pod" value="{{apod}}" autocomplete="off" required>
+                                <span id="demo1"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="bulk">Bulk Booking</label>
+                                <input type="checkbox" name="bulk" id="bulk">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-7">
+                                <label for="branch">Branch *</label><br>
+                                <select name="branch" id="branch" class="form-control" required>
+                                    {% for b in branches %}
+                                    <option value="{{b.branch}}">{{b.branch}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="mobile">Mobile no. *</label><br>
+                                <input type="text" name="number" id="mobile" required>
+                                <span id="demo"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="ref">Ref no.</label><br>
+                                <input type="text" name="ref" id="ref">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="shipper">Shipper *</label><br>
+                                <input type="text" name="shipper" id="shipper" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="phone">Phone</label><br>
+                                <input type="text" name="phone" id="phone">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="add1">Address Line 1 *</label><br>
+                                <input type="text" name="add1" id="add1" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="add2">Address Line 2</label><br>
+                                <input type="text" name="add2" id="add2">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="city">City *</label><br>
+                                <input type="text" name="city" id="city" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="email">Email</label><br>
+                                <input type="email" name="email" id="email">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="flyer">Flyer No.</label><br>
+                                <input type="text" name="flyer" id="flyer">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="gst">GSTIN</label><br>
+                                <input type="text" name="gst" id="gst">
+                            </div>
+                        </div>
+                    <!-- </form>   -->
+                    <div class="form-row">
+                        <div class="form-group col-md-10">
+                            <button class="btn btn-success btn-lg btn-block" id="proceed" disabled>Proceed</button>
+                        </div>
+                    </div>
+                </fieldset>
+    </div>
+    <div id="addresse" class="tab-pane fade">
+        <br>
+        <fieldset>
+      <!-- <form action="{% url 'proceed' %}" method="post">{% csrf_token %} -->
+                                   <legend>Addressee's Details (* Required)</legend>
+                                   <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="pin">Pincode *</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<u><i><b>OR</b></i></u><br>
+                                        <input type="text" name="pin" id="pin" autofocus>
+                                        <span id="demo2"></span>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="destination">Destination *</label><br>
+                                        <input type="text" name="destination" id="destination" required>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="mobiles">Mobile no. *</label><br>
+                                        <input type="text" name="numbers" id="mobiles" required>
+                                        <span id="demo3"></span>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="cons">Consignee *</label><br>
+                                        <input type="text" name="cons" id="cons" required>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="company">Company</label><br>
+                                        <input type="text" name="company" id="company">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="phones">Phone</label><br>
+                                        <input type="text" name="phones" id="phones">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="adds1">Address Line 1 *</label><br>
+                                        <input type="text" name="adds1" id="adds1" required>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="adds2">Address Line 2</label><br>
+                                        <input type="text" name="adds2" id="adds2">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="citys">City *</label><br>
+                                        <input type="text" name="citys" id="citys" required>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="emails">Email</label><br>
+                                        <input type="email" name="emails" id="emails">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="gsts">GSTIN</label><br>
+                                        <input type="text" name="gsts" id="gsts">
+                                    </div>
+                                </div>
+                            <!-- </form> -->
+                            <button class="btn btn-success btn-lg btn-block" id="proceeds" disabled>Proceed</button>
+                        </fieldset>
+    </div>
+    <div id="payment" class="tab-pane fade">
+        <br>
+                <fieldset>
+                    <legend>Payment (* Required)</legend>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="Weight">Weight(in Kg) *</label><br>
+                        <input type="text" name="Weight" id="Weight" autocomplete="off" required>
+                    </div>
+                    <div class="form-group col-md-1">
+                        <label for="mode">Mode *</label>
+                        <select name="mode" id="mode" class="form-control" required>
+                            <option value="" selected></option>
+                            <option value="Air">Air</option>
+                            <option value="Surface">Surface</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="nop">No. of Pieces *</label><br>
+                        <input type="number" name="nop" id="nop" autocomplete="off" autofocus required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="Amount">Amount *</label><br>
+                        <input type="text" name="Amount" id="Amount" value = "0"readonly required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="content">Content</label><br>
+                        <input type="text" name="content" id="content">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="Value">Value</label><br>
+                        <input type="text" name="Value" id="Value">
+                    </div>
+                </div>
+            <button class="btn btn-success btn-lg btn-block" type="submit" id="proceedf">Proceed</button>
+        </form>
+        </fieldset>
+    </div>
+  </div>
+            </div>
+    </div>
+</div>
+
+<!-- JAVASCRIPTTT -->
+    <script>
+        var state="",type=""
+        // Changing Permissions
+        if("{{user.is_superuser}}"=="False"){
+            document.getElementById("d1").style.pointerEvents="none";
+            document.getElementById("d1").style.cursor="default";
+            document.getElementById("d2").style.pointerEvents="none";
+            document.getElementById("d2").style.cursor="default";
+            document.getElementById("d3").style.pointerEvents="none";
+            document.getElementById("d3").style.cursor="default";
+            if("{{user.admin}}"=="False"){
+            document.getElementById("pod").readOnly=true}
+        }
+        // END
+        // Configuring Button
+        proceed.onclick = function(){
+            $('.nav-tabs a[href="#addresse"]').tab('show');
+        }
+        proceeds.onclick = function(){
+            $('.nav-tabs a[href="#payment"]').tab('show');
+        }
+        // END
+        // Importing Parties Data
+        {% if party %}
+        document.getElementById("mobile").value = "{{party.number}}"
+        document.getElementById("ref").value="{{party.reference}}"
+        document.getElementById("shipper").value = "{{party.name}}"
+        document.getElementById("phone").value="{{party.phone}}"
+        document.getElementById("add1").value = "{{party.address1}}"
+        document.getElementById("add2").value = "{{party.address2}}"
+        document.getElementById("city").value = "{{party.city}}"
+        document.getElementById("email").value = "{{party.email}}"
+        document.getElementById("gst").value = "{{party.gst}}"
+        console.log("{{party.price}}")
+        document.getElementById("demo").innerHTML = ' '
+        document.getElementById("proceed").disabled = false;
+        {% endif %}
+        // END
+        if (document.getElementById("mobile").value!="" && document.getElementById("shipper").value!="" && document.getElementById("add1").value!="" && document.getElementById("city").value!="" && document.getElementById("pod").value!=""){
+            $('.nav-tabs a[href="#addresse"]').tab('show');
+        }
+        // Importing Location Data
+        {% if loc %}
+        state="{{loc.state}}"
+        document.getElementById("pin").value="{{loc.pincode}}"
+        document.getElementById("destination").value="{{loc.district}}"
+        document.getElementById("demo2").innerHTML=' '
+        {% endif %}
+        // END
+        // Importing Consignee's Data
+        {% if cons %}
+        document.getElementById("mobiles").value = "{{cons.number}}"
+        document.getElementById("company").value="{{cons.company}}"
+        document.getElementById("cons").value = "{{cons.name}}"
+        document.getElementById("phones").value="{{cons.phone}}"
+        document.getElementById("adds1").value = "{{cons.address1}}"
+        document.getElementById("adds2").value = "{{cons.address2}}"
+        document.getElementById("citys").value = "{{cons.city}}"
+        document.getElementById("emails").value = "{{cons.email}}"
+        document.getElementById("gsts").value = "{{cons.gst}}"
+        document.getElementById("demo1").innerHTML = ' '
+        document.getElementById("proceeds").disabled = false;
+        {% endif %}
+        // END
+        if (document.getElementById("mobiles").value!="" && document.getElementById("cons").value!="" && document.getElementById("adds1").value!="" && document.getElementById("citys").value!="" && document.getElementById("destination").value!=""){
+            $('.nav-tabs a[href="#payment"]').tab('show');
+        }
+        // Importing rest of the information
+        {% if book %}
+        document.getElementById("book").value="{{book}}"
+        {% endif %}
+        {% if branch %}
+        document.getElementById("branch").value="{{branch}}"
+        {% endif %}
+        type="{{mode}}"
+        document.getElementById("nop").value="{{nop}}"
+        document.getElementById("Weight").value="{{wt}}"
+        // END
+        mobile.onblur = function() {
+            var no = /^\d{10}$/;
+            if (!this.value.match(no)) {
+                document.getElementById("demo").innerHTML = 'Please enter a valid number.'
+                document.getElementById("proceed").disabled = true;
+            }
+          else{
+            document.getElementById("proceed").disabled = false;
+              if (!(this.value=="{{party.number}}")) { 
+                document.getElementById("ref").value= ""
+                document.getElementById("shipper").value= "" 
+                document.getElementById("phone").value= ""
+                document.getElementById("add1").value = ""
+                document.getElementById("add2").value = ""
+                document.getElementById("city").value = ""
+                document.getElementById("email").value = ""
+                document.getElementById("gst").value = ""
+            document.getElementById("Farm").submit();
+              }
+            }
+        };
+        pin.onblur = function(){
+            if (!(this.value=="")&&(this.value!="{{loc.pincode}}")) {
+            document.getElementById("Farm").submit();}
+            else if (this.value==""){
+                document.getElementById("destination").value=""
+            }
+        }
+        mobiles.onblur = function() {
+            var no = /^\d{10}$/;
+            if (!this.value.match(no)) {
+                document.getElementById("demo1").innerHTML = 'Please enter a valid number.'
+                document.getElementById("proceed").disabled = true;
+            }
+          else{
+              if (!(this.value=="{{cons.number}}")) { 
+                document.getElementById("company").value=""
+                document.getElementById("cons").value =""
+                document.getElementById("phones").value=""
+                document.getElementById("adds1").value =""
+                document.getElementById("adds2").value =""
+                document.getElementById("citys").value =""
+                document.getElementById("emails").value =""
+                document.getElementById("gsts").value =""
+            document.getElementById("Farm").submit();
+              }
+            }
+        };
+        document.getElementById("mode").value=type
+        if("{{user.is_superuser}}"=="True"||"{{user.admin}}"=="True"){
+            pod.onblur = function() {
+            var no = /^\d{8}$/,n=/^\d{9}$/;
+            if (!this.value.match(no)&&!this.value.match(n)) {
+                document.getElementById("demo1").innerHTML = 'Please enter a valid number.'
+                document.getElementById("proceed").disabled = true;
+            }
+            else{
+                if (this.value!="{{apod}}") {
+                document.getElementById("Farm").submit();
+                }
+            }
+        }
+        }
+        mode.onblur = function(){
+            if (this.options[this.selectedIndex].value!="" && this.options[this.selectedIndex].value!=type){
+                document.getElementById("Farm").submit();
+            }
+        }
+        Weight.onblur=function(){
+            if (this.value<=0.25){
+                Amount.value=Number(this.value)*Number("{{fpr}}")
+                document.getElementById("proceedf").disabled=false
+            }
+            else{
+                Amount.value=0.25*Number("{{fpr}}")+(Number(this.value)-0.25)*Number("{{pr}}")
+                document.getElementById("proceedf").disabled=false
+            }
+        }
+        payment.onclick=function(){
+            if (document.getElementById("Weight").value<=0.25){
+                Amount.value=Number(document.getElementById("Weight").value)*Number("{{fpr}}")
+                document.getElementById("proceedf").disabled=false
+            }
+            else{
+                Amount.value=0.25*Number("{{fpr}}")+(Number(document.getElementById("Weight").value)-0.25)*Number("{{pr}}")
+                document.getElementById("proceedf").disabled=false
+            }
+        }
+        if(document.getElementById("Amount").value=='0'||document.getElementById("Weight").value==''||document.getElementById("mode").value==''){
+            document.getElementById("proceedf").disabled=true
+        }
+    </script>
+</body>
+</html>

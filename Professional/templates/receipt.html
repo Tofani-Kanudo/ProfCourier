@@ -1,0 +1,111 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Consignment Receipt</title>
+        <style type="text/css">
+            body {
+                font-weight: 200;
+                font-size: 14px;
+            }
+            .header {
+                font-size: 20px;
+                font-weight: 100;
+                text-align: left;
+                color: #007cae;
+            }
+            .title {
+                font-size: 28px;
+                font-weight: 100;
+               text-align: center;
+               padding: 10px 20px 0px 20px;  
+            }
+            .title span {
+                color: #007cae;
+            }
+            .details {
+                padding: 10px 20px 0px 20px;
+                text-align: left !important;
+                /*margin-left: 40%;*/
+            }
+            .hrItem {
+                border: none;
+                height: 1px;
+                /* Set the hr color */
+                color: #333; /* old IE */
+                background-color: #fff; /* Modern Browsers */
+            }
+            #w{
+                text-align: right;
+            }
+            #c{
+                text-align: center;
+                font-size: 18px;
+                font-weight: 100;
+                color: rosybrown;
+            }
+            #a{
+                text-align: left;
+                font-size: 18px;
+                font-weight: 100;
+                color: rosybrown;
+            }
+            th{
+                text-align: left;
+                background-color: cornflowerblue;
+                color: antiquewhite;
+                font-size: larger;
+            }
+        </style>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+        <div class='wrapper'>
+            <div class='header'>
+                <img src="https://www.tpcindia.com/images/tpc-logo2.png" alt="Professional" width="200"><div class='title'>Receipt</div>
+            </div>
+        <div>
+           
+            <p id="c">Consignment number: {{ num }}</p>
+           <p id="a"><b><i>Booking Date: {{ date }}<br></i></b></p>
+           <div class='details'>
+            <table class="table table-borderless table-dark">
+                <tr>
+                    <th>Consignor</th>
+                    <th>Consignee</th>
+                    </tr>
+                <tr>
+                  <td>
+                        {% if cust %}Name: {{ cust }}<br>{% endif %}
+                        {% if no %}Mobile no.: {{ no }}<br>{% endif %}
+                        {% if pho %}Phone: {{ pho }}<br>{% endif %}
+                        {% if add1 %}Address: <br>{{ add1 }}<br>{% endif %}
+                        {% if add2 %}{{ add2 }}<br>{% endif %}
+                  </td>
+                  <td>
+                        {% if cons %}Name: {{ cons }}<br>{% endif %}
+                        {% if nu %}Mobile no.: {{ nu }}<br>{% endif %}
+                        {% if dest %}Destination: {{ dest }}<br>{% endif %}
+                        {% if adds1 %}Address: <br>{{ adds1 }}<br>{% endif %}
+                        {% if adds2 %}{{ adds2 }}<br>{% endif %}
+                  </td>
+                </tr>
+              </table>
+            <table class="table table-borderless table-dark">
+                <tr>
+                    <th>Consignment Details</th>
+                </tr>
+                <tr>
+                    <td>
+                        {% if weight %} Weight: {{weight}} kg.<br> {% endif %}
+                        {% if amount %} Amount: Rs.{{amount}}/-<br> {% endif %}
+                    </td>
+                </tr>
+                </table>
+            <hr class='hrItem' />
+        </div>
+    </div>
+        </div>
+    </body>
+</html>

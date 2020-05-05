@@ -11,7 +11,7 @@ class p_user(AbstractUser):
     def __str__(self):
         return self.username
 class party(models.Model):
-    number=models.CharField(max_length=13,null=True,unique=True,primary_key=True)
+    number=models.CharField(max_length=13,null=False,unique=True,primary_key=True)
     reference=models.CharField(max_length=13,null=True,unique=False,blank=True)
     phone=models.CharField(max_length=13,null=True,unique=False,blank=True)
     name=models.CharField(max_length=40,null=True,blank=False)
@@ -28,27 +28,27 @@ class party(models.Model):
     def __str__(self):
         return self.number
 class apod(models.Model):
-    apod=models.CharField(max_length=11,null=True,unique=True,primary_key=True)
+    apod=models.CharField(max_length=11,null=False,unique=True,primary_key=True)
     p_user=models.ForeignKey(p_user,on_delete=models.CASCADE)
     class Meta:
         db_table=u'allocated_pod'
     def __str__(self):
         return self.apod
 class branch(models.Model):
-   branch=models.CharField(max_length=3,null=True,blank=False,primary_key=True)
+   branch=models.CharField(max_length=3,null=False,blank=False,primary_key=True)
    origin=models.ForeignKey('origin',on_delete=models.CASCADE)
    class Meta:
        db_table=u'Branches'
    def __str__(self):
        return self.branch
 class origin(models.Model):
-   origin=models.CharField(max_length=3,null=True,unique=False,primary_key=True)
+   origin=models.CharField(max_length=3,null=False,unique=False,primary_key=True)
    class Meta:
        db_table=u'Origin'
    def __str__(self):
        return self.origin
 class book(models.Model):
-   pod=models.CharField(max_length=11,null=True,unique=True,primary_key=True)
+   pod=models.CharField(max_length=11,null=False,unique=True,primary_key=True)
    booktype=models.CharField(max_length=6,null=True,blank=False)
    sender=models.ForeignKey(party,on_delete=models.CASCADE,related_name='sender')
    reciever=models.ForeignKey(party,on_delete=models.CASCADE,related_name='receiver')
